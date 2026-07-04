@@ -79,18 +79,53 @@ def save_to_csv(report, expense_date, category):
         writer.writerow(row_data)
     print(f"\n💾 Transaction permanently written to '{file_name}'!")
 
+def generate_local_report():
+    file_name = "ledger.csv"
+    if not os.path.exists(file_name):
+        print("\n⚠️ No ledger data found. Try logging an expense first!")
+        return
+
+    print("\n📊 --- Local Ledger Balance Sheet Summary --- 📊")
+    total_expenses_ngn = 0.0
+    total_income_ngn = 0.0
+    total_entries = 0
+
+    with open(file_name, mode="r", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            try:
+                # Extract numeric values from formatted strings (removing commas, currency symbols, and text labels)
+                income_str = row["Gross_Income_Fiat"].split(" ")[0].replace(",", "")
+                expense_field = row["Local_Expense"]
+                
+                # Handle multi-currency expense formatting extraction
+                if "(" in expense_field and "NGN" in expense_field:
+                    expense_str = expense_field.split("(")[1].split(" ")[0].replace(",", "")
+                else:
+                    expense_str = expense_field.split(" ")[0].replace(",", "")
+                
+                total_income_ngn += float(income_str)
+                total_expenses_ngn += float(expense_str)
+                total_entries += 1
+            except Exception:
+                continue
+
+    net_surplus = total_income_ngn - total_expenses_ngn
+    
+    print(f"📂 Total Audited Logs: {total_entries}")
+    print(f"💰 Cumulative Pool Revenue: {total_income_ngn:,.2f} NGN")
+    print(f"💸 Total Outbound Expenses: {total_expenses_ngn:,.2f} NGN")
+    print(f"⚖️ Final Net Reconciled Capital: {net_surplus:,.2f} NGN")
+    print("--------------------------------------------------")
+
 def process_reconciliation(expense, crypto_amount=150.00, crypto_asset="USDT"):
     print("\n💼 --- LedgerLink AI Multi-Currency Engine --- 💼")
     current_rate = get_live_exchange_rate()
     
-    # Calculate inbound income in base currency (NGN)
     total_fiat_earned_ngn = crypto_amount * current_rate
-    
-    # Clean up currency input strings to ensure strict consistency
     expense_currency = expense["currency_fiat"].strip().upper()
     expense_amount_raw = expense["amount_fiat"]
     
-    # Multi-currency translation rule logic
     if expense_currency in ["USD", "USDT"]:
         expense_amount_ngn = expense_amount_raw * current_rate
         display_expense = f"{expense_amount_raw:,.2f} {expense_currency} ({expense_amount_ngn:,.2f} NGN)"
@@ -98,7 +133,6 @@ def process_reconciliation(expense, crypto_amount=150.00, crypto_asset="USDT"):
         expense_amount_ngn = expense_amount_raw
         display_expense = f"{expense_amount_raw:,.2f} {expense_currency}"
 
-    # Reconcile final accounts balance sheets
     net_profit_margin_ngn = total_fiat_earned_ngn - expense_amount_ngn
     
     report = {
@@ -118,14 +152,17 @@ def main_cli_loop():
     print("🚀 --- LedgerLink AI Multi-Modal Engine --- 🚀")
     print("1: 📸 Automate Expense via Document Ingestion")
     print("2: ⌨️ Manually Type New Expense Details")
+    print("3: 📊 Generate Local Financial Statement Summary")
     
-    choice = input("\nSelect an ingestion mode (1 or 2): ").strip()
+    choice = input("\nSelect an option (1, 2, or 3): ").strip()
     
     if choice == "1":
         path = input("Enter receipt image path (or press Enter for test fallback): ").strip()
         if not path:
             path = "test_receipt.jpg"
         expense = parse_receipt_image(path)
+        if expense:
+            process_reconciliation(expense)
     elif choice == "2":
         print("\n📝 Enter Expense Metadata manually:")
         vendor = input("Merchant/Vendor Name: ")
@@ -140,12 +177,12 @@ def main_cli_loop():
             "currency_fiat": currency,
             "category": category
         }
+        if expense:
+            process_reconciliation(expense)
+    elif choice == "3":
+        generate_local_report()
     else:
         print("❌ Invalid Option.")
-        return
-
-    if expense:
-        process_reconciliation(expense)
 
 if __name__ == "__main__":
     main_cli_loop()
