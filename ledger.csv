@@ -1,0 +1,3 @@
+Timestamp,Expense_Date,Category,Accounting_Period,Crypto_Pay,Exchange_Rate,Gross_Income_Fiat,Local_Expense,Net_Balance,Status
+2026-07-04 02:17:44,2026-05-12,Utilities,May 2026,150.0 USDT,"1 USDT = 1,369.31 NGN","205,396.52 NGN","20,000.00 NGN (IBEDC)","185,396.52 NGN",✅ Fully Settled (Surplus)
+2026-07-04 02:22:57,2026-07-04,Development Tools,May 2026,150.0 USDT,"1 USDT = 1,369.31 NGN","205,396.52 NGN","10.00 USD (13,693.10 NGN) (Github Copilot)","191,703.42 NGN",✅ Fully Settled (Surplus)
