@@ -1,0 +1,20 @@
+[
+  {
+    "tx_hash": "0x5a3b2c...1a",
+    "from_address": "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
+    "to_address": "0xYourCompanyTreasuryWalletAddress",
+    "amount_paid": 2500.00,
+    "token_symbol": "USDC",
+    "timestamp": 1783507200,
+    "gas_used_eth": 0.0015
+  },
+  {
+    "tx_hash": "0x8e2c4b...3f",
+    "from_address": "0x123f681646d4a755815f9cb19e1acc8565a0c2ac",
+    "to_address": "0xYourCompanyTreasuryWalletAddress",
+    "amount_paid": 1442.50,
+    "token_symbol": "USDT",
+    "timestamp": 1783510800,
+    "gas_used_eth": 0.0012
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "invoice_id": "INV-2026-001",
+    "vendor_name": "Alpha Tech Consultants",
+    "client_wallet": "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
+    "amount_due": 2500.00,
+    "currency": "USDC",
+    "status": "PENDING"
+  },
+  {
+    "invoice_id": "INV-2026-002",
+    "vendor_name": "Beta Node Providers",
+    "client_wallet": "0x123f681646d4a755815f9cb19e1acc8565a0c2ac",
+    "amount_due": 1450.00,
+    "currency": "USDT",
+    "status": "PENDING"
+  },
+  {
+    "invoice_id": "INV-2026-003",
+    "vendor_name": "Delta Storage Systems",
+    "client_wallet": "0x987b681646d4a755815f9cb19e1acc8565a0c2df",
+    "amount_due": 800.00,
+    "currency": "USDC",
+    "status": "PENDING"
+  }
+]
