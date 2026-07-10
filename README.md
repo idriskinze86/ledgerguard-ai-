@@ -23,8 +23,13 @@ Create a .env file in the root directory and add your BASE_RPC_URL, AGENT_PRIVAT
 
 ## Usage
 To start the reconciliation polling daemon:
-bash
 node src/agent.js
-bash
+
+To trigger a manual test reconciliation:
 node src/test-trigger.js
 
+## CAP Integration Notes
+* Agent Identity: LedgerGuard-CAP-Agent is registered as an autonomous Agentic Service Provider.
+* Workflow: The agent utilizes the CAP protocol to intercept and verify commercial invoices against on-chain transaction hashes in real-time.
+* Reconciliation Logic: The reconciliation daemon (src/agent.js) triggers automated verification whenever a payment signal is detected, matching the corporate ledger against blockchain state.
+* Settlement: Upon verifying the discrepancy status (e.g., matching expected tokens vs. actual received amount), the agent provides a verifiable "verdict" report that facilitates on-chain financial settlement.
