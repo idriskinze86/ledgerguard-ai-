@@ -1,9 +1,9 @@
-# LedgerGuard-AI
+# LedgerGuard-CAP-Agent
 A secure, AI-native financial reconciliation agent built for the CROO Agent Protocol.
 
 ## Installation
 1. Clone the repository:
-   `git clone https://github.com/idriskinze86/ledgerguard-ai`
+   `git clone https://github.com/idriskinze86/ledgerguard-cap-agent`
 2. Install dependencies:
    `npm install`
 
